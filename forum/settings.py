@@ -18,8 +18,8 @@ NEWSPIDER_MODULE = 'forum.spiders'
 USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.95 Safari/537.36'
 
 ITEM_PIPELINES = {
-#     'forum.pipelines.DuplicatesLinksPipeline': 300,
-    'forum.fluentd_pipelines.FluentdPipeline': 400
+    # 'forum.pipelines.DuplicatesLinksPipeline': 300,
+    # 'forum.fluentd_pipelines.FluentdPipeline': 400
 }
 
 COOKIES_ENABLED = True

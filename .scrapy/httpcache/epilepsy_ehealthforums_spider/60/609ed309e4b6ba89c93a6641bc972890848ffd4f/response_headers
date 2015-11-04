@@ -1,0 +1,12 @@
+Content-Encoding: gzip
+Set-Cookie: phpbb2mysql_data=a%3A0%3A%7B%7D; expires=Thu, 03-Nov-2016 22:28:46 GMT; Max-Age=31536000; path=/; domain=.ehealthforum.com
+Set-Cookie: phpbb2mysql_sid=0689dc445344780fd1866f41a2c30ab3; path=/; domain=.ehealthforum.com
+Set-Cookie: isLoggedIn=0; path=/; domain=.ehealthforum.com
+Set-Cookie: last_forum_id=29; expires=Thu, 05-Nov-2015 22:28:46 GMT; Max-Age=86400
+Set-Cookie: ehf_unvis=9416563a869ed61874.33845091; expires=Wed, 04-Nov-2015 22:58:46 GMT; Max-Age=1800; path=/
+Expires: 0
+Vary: Accept-Encoding
+Pragma: no-cache
+Cache-Control: private, pre-check=0, post-check=0, max-age=0
+Date: Wed, 04 Nov 2015 22:28:46 GMT
+Content-Type: text/html; charset=UTF-8
