@@ -16,12 +16,3 @@ class PostItemsList(scrapy.Item):
     topic = scrapy.Field()
     tag = scrapy.Field()
     url = scrapy.Field()
-
-
-class LdonlineItemsList(scrapy.Item):
-    url = scrapy.Field()
-    author = scrapy.Field()
-    author_link = scrapy.Field()
-    create_date = scrapy.Field()
-    message = scrapy.Field()
-    topic = scrapy.Field()

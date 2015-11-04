@@ -1,6 +1,6 @@
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors import LinkExtractor
-from forum.items import LdonlineItemsList
+from forum.items import PostItemsList
 
 
 # import lxml.html
@@ -51,7 +51,7 @@ class ForumsSpider(CrawlSpider):
         posts = response.xpath('//table//tr')[1:-1:2]
 
         for post in posts:
-            item = LdonlineItemsList()
+            item = PostItemsList()
             author = post.xpath(
                 './/td[@class="xar-norm author"]/*/a/text()').extract()[0]
             author_link = post.xpath(
@@ -63,12 +63,13 @@ class ForumsSpider(CrawlSpider):
                 './/div[2]/p//text()'
             ).extract())
 
-            item['url'] = url
             item['author'] = author
             item['author_link'] = author_link
             item['create_date'] = create_date
-            item['message'] = message
+            item['post'] = message
+            item['tag'] = 'epilepsy'
             item['topic'] = subject
+            item['url'] = url
 
             items.append(item)
         return items
