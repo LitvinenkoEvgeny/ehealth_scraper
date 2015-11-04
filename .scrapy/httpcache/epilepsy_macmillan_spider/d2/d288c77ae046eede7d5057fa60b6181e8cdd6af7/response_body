@@ -1,0 +1,2183 @@
+<!DOCTYPE html><html lang="en"><head><meta name="robots" content="index,follow" /><meta name="funnelback:avatar" content="https://community.macmillan.org.uk/cfs-file.ashx/__key/communityserver-components-selectableavatars/64e6583d-e9be-44d9-a227-06c829b8c238/avatar.png" /><meta name="funnelback:lastupdateddate" content="2015-11-02T08:54:28.537" /><meta name="GENERATOR" content="Zimbra Community 8" /><link rel="alternate" href="https://m-community.macmillan.org.uk/content/remote.ashx?https%3a%2f%2fcommunity.macmillan.org.uk%2fcancer_types%2fbreast-cancer%2ff%2f38%2ft%2f100606&amp;fromFullSite" media="only screen and (max-width: 640px)" />
+<link rel="stylesheet" href="/cfs-file/__key/system/h-000000000c2adb3d-https-communitymacmillanorguk-443-css/layout.css" type="text/css" media="screen" /><script type="text/javascript" src="/utility/jquery/jquery.min.js?LastChanged=635821355152397450"></script><script type="text/javascript" src="/utility/jquery/telligent.glow.min.js?LastChanged=635821355153957500"></script><script type="text/javascript" src="/utility/jquery/jquery.validate.min.js?LastChanged=635821355152553455"></script><script type="text/javascript">
+// <![CDATA[
+try { jQuery.extend(jQuery.validator.messages,{required:'This field is required.',remote:'Please fix this field.',date:'Please enter a valid date.',dateISO:'Please enter a valid date (ISO).',number:'Please enter a valid number.',digits:'Please enter only digits.',creditcard:'Please enter a valid credit card number.',equalTo:'Please enter the same value again.',accept:'Please enter a value with a valid extension.',maxlength:jQuery.validator.format('Please enter no more than {0} characters.'),minlength:jQuery.validator.format('Please enter at least {0} characters.'),rangelength:jQuery.validator.format('Please enter a value between {0} and {1} characters long.'),range:jQuery.validator.format('Please enter a value between {0} and {1}.'),max:jQuery.validator.format('Please enter a value less than or equal to {0}.'),min:jQuery.validator.format('Please enter a value greater than or equal to {0}.')}); } catch(e) { };
+// ]]>
+</script><script type="text/javascript" src="/utility/jquery/telligent.evolution.min.js?LastChanged=635821355153177475"></script><script type="text/javascript">
+// <![CDATA[
+try { jQuery.telligent.evolution.site.configure({baseUrl:'\/',isRemote:false,remoteUrlEncodePattern:'',monthNames:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],dayNames:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],authorizationCookieName:'AuthorizationCookie',defaultErrorMessage:'An error occurred.  Please try again or contact your administrator.',defaultMultiErrorMessagePrefix:'The following errors occurred:  ',silverlightFileUploadEnabled:false,accessingUserId:2101,accessingUserIsSystemAccount:true});
+jQuery.extend($.fn.evolutionUserFileTextBox.defaults,{removeText:'Remove',selectText:'Select\/Upload...',noFileText:'No File Selected'});
+jQuery.telligent.evolution.navigationConfirmation.configure({message:'Unless you save before leaving this page, you will lose any changes you have made.'});
+jQuery.telligent.evolution.validation.registerExtensions({passwordInvalidMessage:'Password contains invalid chars ...',passwordRegex:'^.*$',emailInvalidMessage:'Your email address is invalid.',emailRegex:'^\\w+([-+.\']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$',usernameInvalidMessage:'Your sign in name does not meet the requirements for this site.',usernameRegex:'^[a-zA-Z0-9_\\- @\\.]+$',emailsInvalidMessage:'One or more emails is invalid',urlInvalidMessage:'URL not in correct format',urlRegex:'^((http|https|mailto|mms):|\/|#|~\/)'});
+jQuery.extend(jQuery.fn.evolutionLike.defaults,{likeText:'Like',unlikeText:'Unlike',modalTitleText:'People who like this',modalShowMoreText:'Show More',whoLikesOtherText:'<a href=\"{user_profile_url}\" class=\"internal-link view-user-profile\">{user_display_name}<\/a> likes this',whoLikesOtherTwoText:'<a href=\"{user_profile_url}\" class=\"internal-link view-user-profile\">{user_display_name}<\/a> and <span class=\"who-likes\">1 other<\/span> like this',whoLikesOtherMultipleText:'<a href=\"{user_profile_url}\" class=\"internal-link view-user-profile\">{user_display_name}<\/a> and <span class=\"who-likes\">{count} others<\/span> like this',whoLikesAccessingText:'You like this',whoLikesAccessingTwoText:'You and <span class=\"who-likes\">1 other<\/span> like this',whoLikesAccessingMultipleText:'You and <span class=\"who-likes\">{count} others<\/span> like this'});
+jQuery.extend(jQuery.fn.evolutionInlineTagEditor.defaults,{editButtonText:'Edit tags',selectTagsText:'Select tags',saveTagsText:'Save',cancelText:'Cancel'});
+jQuery.extend(jQuery.fn.evolutionStarRating.defaults,{titles:['Terrible','Poor','Fair','Average','Good','Excellent'],ratingMessageFormat:'Average rating: {rating} out of {count} ratings.'});
+jQuery.extend(jQuery.fn.evolutionModerate.defaults,{moderateLinkText:'moderate',reportLinkText:'Flag as spam\/abuse',reportedLinkText:'Flagged as spam\/abuse',reportedNotificationMessageText:'{NAME}\'s post has been flagged. <strong>Thank you for your feedback.<\/strong>'});
+jQuery.extend(jQuery.fn.evolutionBookmark.defaults,{deleteBookmarkText:'Unbookmark {content_type_name}',addBookmarkText:'Bookmark this {content_type_name}',processingText:'...'});
+jQuery.extend(jQuery.telligent.evolution.ui.components.convertcontent.defaults,{resourcePromptTitle:'Convert',resourceContentTypeLabel:'To',resourceContentTypePlaceholder:'Select type…',resourceContentTypeErrorMessage:'This content is not eligible for conversion.',resourceContainerLabel:'In Group',resourceContainerErrorMessage:'No Matching Groups',resourceApplicationLabel:'In Application',resourceApplicationPlaceholder:'Select application…',resourceApplicationErrorMessage:'This group contains no eligible applications.',resourceConvertLabel:'Convert'});
+} catch(e) { };
+// ]]>
+</script><script type="text/javascript">jQuery(function($) {
+	$.telligent.evolution.messaging.subscribe('userActionFollowToggle', function(data) {
+		var e = $(data.target);
+		var userId = e.data('userid'), accessingUserId = e.data('accessinguserid'), v = e.data('follow');
+		e.html('...');
+		if (v) {
+			$.telligent.evolution.post({
+				url: $.telligent.evolution.site.getBaseUrl() + 'api.ashx/v2/users/{FollowerId}/following.json',
+				data: { FollowerId: accessingUserId, FollowingId: userId },
+				dataType: 'json',
+				success: function(response) { e.html('Unfollow').data('follow', false); },
+				error: function(response) {  e.html('Follow').data('follow', true); }
+			});
+		} else {
+			$.telligent.evolution.del({
+				url: $.telligent.evolution.site.getBaseUrl() + 'api.ashx/v2/users/{FollowerId}/following/{FollowingId}.json',
+				data: { FollowerId: accessingUserId, FollowingId: userId },
+				dataType: 'json',
+				success: function(response) { e.html('Follow').data('follow', true); },
+				error: function(response) {  e.html('Unfollow').data('follow', false); }
+			});
+		}
+	});
+});</script><script type="text/javascript">jQuery(function($) {
+	$.telligent.evolution.messaging.subscribe('userActionFriendshipToggle', function(data) {
+		var e = $(data.target);
+		var userId = e.data('userid'), accessingUserId = e.data('accessinguserid'), v = parseInt(e.data('friendship'));
+		var t = e.html();
+		e.html('...');
+		if (v == 0) {
+				$.telligent.evolution.post({
+					url: $.telligent.evolution.site.getBaseUrl() + 'api.ashx/v2/users/{RequestorId}/friends.json',
+					data: { RequestorId: accessingUserId, RequesteeId: userId, RequestMessage: '' },
+					dataType: 'json',
+					success: function(response) { window.location = window.location; },
+					error: function(response) {  e.html(t); }
+				});
+		} else if (v == 3) {
+				$.telligent.evolution.post({
+					url: $.telligent.evolution.site.getBaseUrl() + 'api.ashx/v2/users/{RequestorId}/friends.json',
+					data: { RequestorId: accessingUserId, RequesteeId: userId, RequestMessage: ' '},
+					dataType: 'json',
+					success: function(response) { window.location = window.location; },
+					error: function(response) {  e.html(t); }
+				});
+		} else if (v == 1 || v == 2 || v == 4) {
+			if (v == 4 || (v == 1 && window.confirm('Are you sure you want to cancel this friendship request?')) || (v == 2 && window.confirm('Are you sure you want to unfriend this person?'))) {
+				$.telligent.evolution.del({
+					url: $.telligent.evolution.site.getBaseUrl() + 'api.ashx/v2/users/{RequestorId}/friends/{RequesteeId}.json',
+					data: { RequestorId: accessingUserId, RequesteeId: userId },
+					dataType: 'json',
+					success: function(response) { window.location = window.location; },
+					error: function(response) {  e.html(t); }
+				});
+			} else { e.html(t); }
+		}
+	});
+});</script><script type="text/javascript">(function($){ $.telligent.evolution.ui.components.convertcontent.defaults.configurableConverterFormEndpoint = 'https://community.macmillan.org.uk/callback.ashx?__type=Telligent.Evolution.CoreServices.ContentConversion.Implementations.ContentConversionHttpCallback%2C%20Telligent.Evolution.Core'; }(jQuery));</script><script type="text/javascript">(function($){ $.telligent.evolution.media.defaults.endpoint = 'https://community.macmillan.org.uk/callback.ashx?__type=Telligent.Evolution.Api.Plugins.Endpoints.FileViewerEndpoint%2C%20Telligent.Evolution.Api'; }(jQuery));</script><script type="text/javascript">(function($){ $.telligent.evolution.preview.defaults.endpoint = 'https://community.macmillan.org.uk/callback.ashx?__type=Telligent.Evolution.Api.Plugins.Endpoints.WebPreviewEndpoint%2C%20Telligent.Evolution.Api'; }(jQuery));</script><script type="text/javascript">(function($){ $.telligent.evolution.language.defaults.dateEndpoint = 'https://community.macmillan.org.uk/callback.ashx?__type=Telligent.Evolution.Api.Plugins.Endpoints.DateFormattingEndpoint%2C%20Telligent.Evolution.Api'; }(jQuery));</script><script type="text/javascript">(function($){ $.fn.evolutionUserFileTextBox.defaults.endpoint = 'https://community.macmillan.org.uk/callback.ashx?__type=Telligent.Evolution.Api.Plugins.Endpoints.UserFileTextBoxEndpoint%2C%20Telligent.Evolution.Api'; }(jQuery));</script>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />  <meta name="google-site-verification" content="0AnnP0TGJ5CcsoujxT7yfJpU6QLSFcPiREYqvPdJmeY" />  <script type="text/javascript" src="/themes/macmillan/script/analytics.min.js"></script> <link rel="shortcut icon" type="image/ico" href="https://community.macmillan.org.uk/themes/macmillan/favicon.ico" /> <link rel="stylesheet" href="https://community.macmillan.org.uk/themes/generic/css/layout.css?LastChanged=635660069230111993" type="text/css" media="screen" />  <link type="text/css" rel="stylesheet" href="https://community.macmillan.org.uk/Content/Css/header-v2.min.css" />  <link type="text/css" rel="stylesheet" href="https://community.macmillan.org.uk/Themes/Macmillan/Css/global-login.min.css" />  <link type="text/css" rel="stylesheet" href="/themes/macmillan/css/community-core.3.8.5.15.min.css" media="screen,print" />     <!--[if lte IE 6]>     <link type="text/css" rel="stylesheet" href="https://community.macmillan.org.uk/themes/macmillan/css/ie6.min.css" media="screen,print" />  <![endif]-->  <!--[if lte IE 8]>     <link type="text/css" rel="stylesheet" href="https://community.macmillan.org.uk/themes/macmillan/css/ie8.min.css?version=3.6.1.371" media="screen,print" />            <link type="text/css" rel="stylesheet" href="https://community.macmillan.org.uk/content/css/header-desktop-overrides-ie8.min.css" media="screen,print" />  <![endif]-->  <!--[if lt IE 8]>     <link type="text/css" rel="stylesheet" href="https://community.macmillan.org.uk/themes/macmillan/css/ie7.min.css" media="screen,print" />  <![endif]-->  <!--[if IE 9]>     <link type="text/css" rel="stylesheet" href="https://community.macmillan.org.uk/themes/macmillan/css/ie9.min.css?version=3.6.1.371" media="screen,print" />  <![endif]-->  <!--[if IE]>     <link type="text/css" rel="stylesheet" href="https://community.macmillan.org.uk/themes/macmillan/css/ieall.min.css" media="screen,print" />  <![endif]-->  <link type="text/css" rel="stylesheet" href="https://community.macmillan.org.uk/themes/macmillan/css/print.min.css" media="print" />
+        <link type="text/css" rel="stylesheet" href="/cfs-filesystemfile/__key/themefiles/s-fd-58f17914a9cc4343a43ebf1db38610cb-stylesheetfiles/community_2D00_layout.3.8.5.17.min.css" />
+          <link type="text/css" rel="stylesheet" href="/dynamic-style?ThemeTypeId=0c647246-6735-42f9-875d-c8b991fe739b&amp;ThemeContextId=00000000-0000-0000-0000-000000000000&amp;PreviewKey=0&amp;Theme=58f17914a9cc4343a43ebf1db38610cb" media="screen,print" />
+        
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+          <link type="text/css" rel="stylesheet" href="/dynamic-style?ThemeTypeId=c6108064-af65-11dd-b074-de1a56d89593&amp;ThemeContextId=2008bf81-be26-4d38-bdb3-ff82384f6ad0&amp;PreviewKey=0&amp;Theme=58f17914a9cc4343a43ebf1db38610cb" media="screen,print" />
+        <!-- Start Asynchronous Code --><script type='text/javascript'>var _vwo_code=(function(){var account_id=62670,settings_tolerance=2000,library_tolerance=2500,use_existing_jquery=false, /* DO NOT EDIT BELOW THIS LINE */ f=false,d=document;return{use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){settings_timer=setTimeout('_vwo_code.finish()',settings_tolerance);this.load('//dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&r='+Math.random());var a=d.createElement('style'),b='body{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}',h=d.getElementsByTagName('head')[0];a.setAttribute('id','_vis_opt_path_hides');a.setAttribute('type','text/css');if(a.styleSheet)a.styleSheet.cssText=b;else a.appendChild(d.createTextNode(b));h.appendChild(a);return settings_timer;}};}());_vwo_settings_timer=_vwo_code.init();</script>
+<link rel="alternate" type="application/rss+xml" title="Cheesie&#39;s Activities (RSS 2.0)" href="/members/cheesie/activities/rss"  /><link rel="alternate" type="application/rss+xml" title="Activities of People Cheesie Follows (RSS 2.0)" href="/members/cheesie/activities/followersrss"  /><link rel="alternate" type="application/rss+xml" title="Cheesie&#39;s Groups Activities (RSS 2.0)" href="/members/cheesie/activities/groupsrss"  /><link rel="alternate" type="application/rss+xml" title="Breast cancer (RSS 2.0)" href="https://community.macmillan.org.uk/cancer_types/breast-cancer/rss"  /><link rel="alternate" type="application/rss+xml" title="Breast cancer - Discussion Forum - Recent Threads (RSS 2.0)" href="https://community.macmillan.org.uk/cancer_types/breast-cancer/f/38/rss?Mode=0"  /><link rel="alternate" type="application/rss+xml" title="Breast cancer - Discussion Forum - Recent Posts (RSS 2.0)" href="https://community.macmillan.org.uk/cancer_types/breast-cancer/f/38/rss?Threadless=1"  /><link rel="alternate" type="application/rss+xml" title="Please help I need advice I feel helpless (RSS 2.0)" href="https://community.macmillan.org.uk/cancer_types/breast-cancer/f/38/t/100606/rss?ContentTypeId=0"  /><title>
+	Please help I need advice I feel helpless - Breast cancer - Discussion Forum - Breast cancer - Macmillan's Online Community
+</title></head><body spellcheck="true"><form name="ctl03" method="post" action="100606" id="ctl03">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUBMGRkIhT4Q2YeL/ERQr+WqzJ3ckgGbSU=" />
+</div>
+
+
+<script src="/WebResource.axd?d=KJCJNYh1Sw9D4jYvyHD-zz0L2rwTGb9rcxLtTCqguXzlvzk-4fcK52k20NNpe3AOYG922zj7nSWDtQqEOEfNESW_Yq37pby6h-aYSKnyj75Qr7Sbe2rmi0Gp9fmkA6EmjVepdnq3aRVFK7po2DscASe5kuxosWDXe4_JBHnTXFA10zezriarTh6nJowJDz1ShHhafsPA5f9FdJVZUPknoBxrZpk1&amp;t=635821354820262805" type="text/javascript"></script>
+<script src="/WebResource.axd?d=XCvkQX1agHSa-_AC4D8uQTldlpe83gFClm4njkmmVf_FhKZaT1UH7P_-3M_vy8Fz4HCXfQasLSQDykTgIFqyXNcfz24df6juikZDLWv6Mcd9Maw_AqD3KdZp0m6k46RLahbQbMBwmkjhZhNVT9XWfwNDLG41&amp;t=635821354833523230" type="text/javascript"></script>
+<script src="/WebResource.axd?d=NviUQNoztVVkzwNpgRS4GIBXvHWPgS5JAu8C5cHCiDo4179R5nv-MBTeZEbf4lPgogotrLWE2vcYIonzSPx8WiMF4VxuyDYqj52Hs_FfHv_Ce7itlrRcFunT0mEw5vEkrzrIiezHpMD66NCvlVzILeyY2Br3hRSmrmOlGqnfC0qxZDFZ0&amp;t=635821354833523230" type="text/javascript"></script>
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="C21772F6" />
+</div><div class="header-fragments-header"></div>
+<div class="header-fragments" id="ctl04_ctl01_page"><div class="layout">
+<div class="layout-header"></div>
+<div class="layout-content content" id="ctl04_ctl01_layout">
+<div class="layout-region content" id="ctl04_ctl01_content">
+<div class="layout-region-inner content"><div class="content-fragment sso-header-bar-fragment" id="header-105">
+<div class="content-fragment-inner macmillan-content-fragment-inner"><div class="content-fragment-top macmillan-content-fragment-top"></div><div class="content-fragment-content">
+      
+      
+
+      <div class="header-v2-wrapper">
+        <div class="top-header group"><ul><li class="home-cta"><a href="http://www.macmillan.org.uk/">Home</a></li><li class="how-can-we-help-cta"><a href="http://www.macmillan.org.uk/information-and-support/audience/index.html">How can we help you today?</a></li><li class="online-community"><a href="https://community.macmillan.org.uk">Online Community</a></li><li class="login"><div class="js-hover"><a href="https://my.macmillan.org.uk/Account/LogOn?returnurl=https%3a%2f%2fcommunity.macmillan.org.uk%2fcancer_types%2fbreast-cancer%2ff%2f38%2ft%2f100606%3fsource%3dlogin">Login</a><a class="signed-in arrow js-prevent" href="https://my.macmillan.org.uk/Profile/Index" style="margin-left: 20px;">
+        My Macmillan<span class=""><!----></span></a><div class="login-box" style="display: none;"><a href="https://my.macmillan.org.uk/Account/Register?returnUrl=https%3a%2f%2fcommunity.macmillan.org.uk%2fcancer_types%2fbreast-cancer%2ff%2f38%2ft%2f100606%3forigin%3dcommunityactivationemail&amp;src=community" class="cta-button sso"><em>Create account</em></a><a href="https://my.macmillan.org.uk/Profile/SavedPages" class="cta-button sso"><em>Saved pages</em></a></div></div></li><li class="login-no-js"><div class="no-js-links"><a href="https://my.macmillan.org.uk/Account/Register" class="my-details">Create account</a><a href="https://my.macmillan.org.uk/Account/LogOn?returnurl=https%3a%2f%2fcommunity.macmillan.org.uk%2fcancer_types%2fbreast-cancer%2ff%2f38%2ft%2f100606%3fsource%3dlogin">Login</a></div></li></ul></div>
+      </div>
+      
+      </div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom macmillan-content-fragment-bottom"></div></div></div>
+<div id="header-106"></div>
+<div class="content-fragment site-banner" id="header-107">
+<div class="content-fragment-inner macmillan-content-fragment-inner"><div class="content-fragment-top macmillan-content-fragment-top"></div><div class="content-fragment-content">
+
+        <div class="header-v2-wrapper">
+  <div id="main-header" class="group">
+    <header  role="banner">
+      <div class="layout">
+        <div class="logo">
+          <a href="http://www.macmillan.org.uk/">
+            <img src="/content/images/9-17322Logo.jpg" alt="Macmillan Cancer Support"/>
+          </a>
+        </div>
+        <div class="group">
+          <nav role="navigation">
+            <ul>
+              <li>
+                <a href="http://www.macmillan.org.uk/information-and-support/index.html" title="Information and support" role="link">
+                  <span>
+                    Information<br /> and support
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="http://www.macmillan.org.uk/get-involved/all-ways-to-help.html" title="Get involved" role="link">
+                  <span>
+                    Get <br />involved
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="http://www.macmillan.org.uk/in-your-area/choose-location.html" title="In your area" role="link">
+                  <span>
+                    In your<br /> area
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="http://www.macmillan.org.uk/Aboutus/AboutUsHome.aspx" title="About us" role="link">
+                  <span>
+                    About<br /> us
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div class="header-search">
+            <div class="search-btn">
+              <a href="#">
+                <span>Search</span>
+              </a>
+            </div>
+            <div class="search">
+              <div id="searchForm">
+                <label for="query">Search</label>
+                <input id="query" name="query" data-value="Search" value="" class="ui-autocomplete-input default-value" type="text" autocomplete="on" role="textbox" aria-autocomplete="list" aria-haspopup="true" />
+                  <button type="button" class="cta-button">
+                    <span>Go</span>
+                    <span></span>
+                  </button>
+                </div>
+            </div>
+            <div class="donate-cta">
+              <a href="http://www.macmillan.org.uk/Donate" title="Donate">
+                <span>Donate</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+</div>
+
+
+        
+        
+      </div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom macmillan-content-fragment-bottom"></div></div></div>
+<div class="content-fragment CommunityNavigation-content-fragment" id="header-108">
+<div class="content-fragment-inner macmillan-content-fragment-inner"><div class="content-fragment-top macmillan-content-fragment-top"></div><div class="content-fragment-content">
+<div class="mainNavigationBar">
+    <div class="mainNavigationBarInner">
+        <ul class="community-nav">
+          <li class="first ">
+              <a href="/home" title="Community home">
+                  <span class="navButtonLeft">
+                      <span class="navButtonRight">
+                          <span class="navButton">Community home</span>
+                      </span>
+                  </span>
+              </a>
+          </li>
+          
+          <li  class="selected" >
+              <a href="/groups/" title="Groups">
+                  <span class="navButtonLeft">
+                      <span class="navButtonRight">
+                          <span class="navButton">Groups</span>
+                      </span>
+                  </span>
+              </a>
+          </li>
+                    
+          <li >
+              <a href="/blogs/" title="Blogs">
+                  <span class="navButtonLeft">
+                      <span class="navButtonRight">
+                          <span class="navButton">Blogs</span>
+                      </span>
+                  </span>
+              </a>
+          </li>
+          
+          <li >
+              <a href="/p/communitychat.aspx" title="Ask the expert">
+                  <span class="navButtonLeft">
+                      <span class="navButtonRight">
+                          <span class="navButton">Ask the expert</span>
+                      </span>
+                  </span>
+              </a>
+          </li>
+          
+          <li >
+              <a href="/p/macmillanhelp.aspx" title="Help">
+                  <span class="navButtonLeft">
+                      <span class="navButtonRight">
+                          <span class="navButton">Help</span>
+                      </span>
+                  </span>
+              </a>
+          </li>
+        </ul>
+        
+                        <div class="clear"></div>
+    </div>
+</div>
+<div class="sys_clear"></div>
+
+</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom macmillan-content-fragment-bottom"></div></div></div>
+<div id="header-109"></div>
+<div class="content-fragment macmillan-breadcrumb-content-fragment" id="header-116">
+<div class="content-fragment-inner macmillan-content-fragment-inner"><div class="content-fragment-top macmillan-content-fragment-top"></div><div class="content-fragment-content">
+      
+            
+                <ul class="staticBreadcrumb"><li>
+                                      <a href="/g" title="Groups">Groups</a>
+                                        </li><li>&gt;
+                                                <a href="/cancer_types/" title="Cancer types">Cancer types</a>
+                                        </li><li>&gt;
+                                                <a href="/cancer_types/breast-cancer/" title="Breast cancer">Breast cancer</a>
+                                        </li><li>&gt;
+                                                <a href="/cancer_types/breast-cancer/discussions" title="Breast cancer - Discussion Forum">Breast cancer - Discussion Forum</a>
+                                        </li><li>&gt;
+                                                Please help I need advice I feel helpless
+                                              </li></ul>
+      </div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom macmillan-content-fragment-bottom"></div></div></div>
+</div>
+</div>
+</div>
+<div class="layout-footer"></div>
+</div></div><div class="header-fragments-footer"></div><div class="content-fragment-page forums-thread" id="ctl04_ctl02_page"><div class="layout">
+<div class="layout-header"></div>
+<div class="layout-content content-left-sidebar-right" id="ctl04_ctl02_layout">
+<div class="layout-region right-sidebar" id="ctl04_ctl02_right-sidebar">
+<div class="layout-region-inner right-sidebar"><div class="content-fragment forum-links full-border with-header fullHeader" id="fragment-1555">
+<div class="content-fragment-inner macmillan-content-fragment-inner"><div class="content-fragment-top macmillan-content-fragment-top"></div><div class="content-fragment-header"><div>
+        Discussion tools
+      </div></div><div class="content-fragment-border"></div>
+<div class="content-fragment-content">
+
+            
+      <div class="navigation-list-header"></div>
+      <ul class="navigation-list">
+        				  			          
+        
+			  			                  
+        				  					  <li class="navigation-item"><a href="/cancer_types/breast-cancer/rss" class="internal-link subscribe-rss"><span></span>Subscribe via RSS</a></li>
+					  				  			          
+                
+        				  			          
+                
+                  				  			          
+        				  			        </ul>
+      <div class="navigation-list-footer"></div>
+
+            </div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom macmillan-content-fragment-bottom"></div></div></div>
+<div class="content-fragment tag-cloud full-border with-header fullHeader" id="fragment-1557">
+<div class="content-fragment-inner macmillan-content-fragment-inner"><div class="content-fragment-top macmillan-content-fragment-top"></div><div class="content-fragment-header"><div>
+Keywords
+			</div></div><div class="content-fragment-border"></div>
+<div class="content-fragment-content">
+
+
+		
+				
+		
+	
+
+			
+		
+				
+		
+	
+
+
+	<ul class="tag-list cloud">
+		<li class="tag-item level-1">
+																							<a href="/tags/_3F00_breast%2bcancer" rel="nofollow tag"><span></span>?breast cancer</a>
+			</li>
+		<li class="tag-item level-2">
+																							<a href="/tags/1st%2bchemo" rel="nofollow tag"><span></span>1st chemo</a>
+			</li>
+		<li class="tag-item level-3">
+																							<a href="/tags/Advice%2bon%2bchemo" rel="nofollow tag"><span></span>Advice on chemo</a>
+			</li>
+		<li class="tag-item level-6">
+																							<a href="/tags/after%2bbreast%2bcancer" rel="nofollow tag"><span></span>after breast cancer</a>
+			</li>
+		<li class="tag-item level-3">
+																							<a href="/tags/breast" rel="nofollow tag"><span></span>breast</a>
+			</li>
+		<li class="tag-item level-1">
+																							<a href="/tags/Breast%2bcancer" rel="nofollow tag"><span></span>Breast cancer</a>
+			</li>
+		<li class="tag-item level-1">
+																							<a href="/tags/breast%2bcancer%2b%2b_2E00_" rel="nofollow tag"><span></span>breast cancer  .</a>
+			</li>
+		<li class="tag-item level-1">
+																							<a href="/tags/breast%2bcancer%2band%2bchemotherapy" rel="nofollow tag"><span></span>breast cancer and chemotherapy</a>
+			</li>
+		<li class="tag-item level-2">
+																							<a href="/tags/breast%2bcancer%2bchemotherapy" rel="nofollow tag"><span></span>breast cancer chemotherapy</a>
+			</li>
+		<li class="tag-item level-6">
+																							<a href="/tags/breast%2bcancer%2binformation" rel="nofollow tag"><span></span>breast cancer information</a>
+			</li>
+		<li class="tag-item level-4">
+																							<a href="/tags/Breast%2bCancer%2bTreatment" rel="nofollow tag"><span></span>Breast Cancer Treatment</a>
+			</li>
+		<li class="tag-item level-5">
+																							<a href="/tags/breast%2bcancer-%2bFEC-%2bChemo" rel="nofollow tag"><span></span>breast cancer. FEC. Chemo</a>
+			</li>
+		<li class="tag-item level-5">
+																							<a href="/tags/Breast%2breconstruction" rel="nofollow tag"><span></span>Breast reconstruction</a>
+			</li>
+		<li class="tag-item level-5">
+																							<a href="/tags/cancer" rel="nofollow tag"><span></span>cancer</a>
+			</li>
+		<li class="tag-item level-3">
+																							<a href="/tags/chemo" rel="nofollow tag"><span></span>chemo</a>
+			</li>
+		<li class="tag-item level-2">
+																							<a href="/tags/chemotherapy" rel="nofollow tag"><span></span>chemotherapy</a>
+			</li>
+		<li class="tag-item level-6">
+																							<a href="/tags/Docetaxel" rel="nofollow tag"><span></span>Docetaxel</a>
+			</li>
+		<li class="tag-item level-4">
+																							<a href="/tags/Hair%2bloss" rel="nofollow tag"><span></span>Hair loss</a>
+			</li>
+		<li class="tag-item level-5">
+																							<a href="/tags/HERCEPTIN" rel="nofollow tag"><span></span>HERCEPTIN</a>
+			</li>
+		<li class="tag-item level-2">
+																							<a href="/tags/mastectomy" rel="nofollow tag"><span></span>mastectomy</a>
+			</li>
+		<li class="tag-item level-6">
+																							<a href="/tags/New%2bto%2bbreast%2bcancer" rel="nofollow tag"><span></span>New to breast cancer</a>
+			</li>
+		<li class="tag-item level-6">
+																							<a href="/tags/Newly%2bdiagnosed" rel="nofollow tag"><span></span>Newly diagnosed</a>
+			</li>
+		<li class="tag-item level-3">
+																							<a href="/tags/radiotherapy" rel="nofollow tag"><span></span>radiotherapy</a>
+			</li>
+		<li class="tag-item level-4">
+																							<a href="/tags/reconstruction" rel="nofollow tag"><span></span>reconstruction</a>
+			</li>
+		<li class="tag-item level-4">
+																							<a href="/tags/side%2beffects" rel="nofollow tag"><span></span>side effects</a>
+			</li>
+	</ul>
+	</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom macmillan-content-fragment-bottom"></div></div></div>
+</div>
+</div>
+<div class="layout-region content" id="ctl04_ctl02_content">
+<div class="layout-region-inner content"><div id="fragment-1558"></div>
+<div class="content-fragment group-banner boxNoHeader" id="fragment-1559">
+<div class="content-fragment-inner macmillan-content-fragment-inner"><div class="content-fragment-top macmillan-content-fragment-top"></div><div class="content-fragment-content">
+
+      <div class="macmillanGroupBanner">
+        <div class="avatar">
+          <a class="internal-link view-group" href="https://community.macmillan.org.uk/cancer_types/breast-cancer/">
+            <img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-groupselectableavatars-065289ae-5e19-4027-8f28-52cf1f56475b/avatar.png_2D00_70x70.png" alt="Breast cancer" />
+          </a>
+        </div>
+        <div class="groupInformation">
+          <h2 class="group-name">
+            <span></span>
+            Breast cancer
+          </h2>
+          <div class="group-description">
+            Breast cancer is the most common cancer in women in the UK. Men can also develop breast cancer, although this is rare. This group is for anyone affected by breast cancer to get together, ask questions, share experiences and support each other.
+          </div>
+                    <div class="searchInGroup">
+            <label for="group-search-term" class="findBlog">Search in group</label>
+            <input name="group-search-term" type="text" id="group-search-term" class="findBlog groupFindBox" />
+            <div class="findBlog">
+              <input type="button" id="group-search-button" name="group-search-button" value="Go" class="standardButton" />
+            </div>
+          </div>
+                  </div>
+        <div class="clear"></div>
+        
+        <div class="membershipOptions">
+                    
+                    
+                      <a href="https://my.macmillan.org.uk/Account/LogOn?returnUrl=https%3a%2f%2fcommunity.macmillan.org.uk%2fcancer_types%2fbreast-cancer%2ff%2f38%2ft%2f100606%3fsource%3dlogin" class="standardButton">
+              Join this group
+            </a>
+                    
+                    
+                    
+          				                          
+        </div>
+
+      <div class="clear"></div>
+      </div>
+
+        				</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom macmillan-content-fragment-bottom"></div></div></div>
+<div id="fragment-3196"></div>
+<div class="content-fragment GroupTabbedNavigation-content-fragment no-padding no-top" id="fragment-1560">
+<div class="content-fragment-inner macmillan-content-fragment-inner"><div class="content-fragment-top macmillan-content-fragment-top"></div><div class="content-fragment-content">
+      
+            
+      <div class="user-display-tabs">
+        <ul>
+          <li >
+                          <a href="/cancer_types/breast-cancer/" title="Latest Activity">
+                          <span class="user-tabs-left">
+                <span class="user-tabs-right">
+                  <span class="tab-link-text">
+                    Latest Activity
+                  </span>
+                </span>
+              </span>
+                          </a>
+                      </li>
+          <li >
+                          <a href="/cancer_types/breast-cancer/discussions" title="Discussions">
+                          <span class="user-tabs-left">
+                <span class="user-tabs-right">
+                  <span class="tab-link-text">
+                    Discussions
+                  </span>
+                </span>
+              </span>
+                          </a>
+                      </li>
+          
+                    
+                      <li >
+                              <a href="/cancer_types/breast-cancer/members" title="Members">
+                              <span class="user-tabs-left">
+                  <span class="user-tabs-right">
+                    <span class="tab-link-text">
+                      Members
+                    </span>
+                  </span>
+                </span>
+                              </a>
+                          </li>
+           	      </ul>
+        <div class="clear"></div>
+</div></div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom macmillan-content-fragment-bottom"></div></div></div>
+<div class="content-fragment forum-thread-statistics no-padding no-top" id="fragment-1561">
+<div class="content-fragment-inner macmillan-content-fragment-inner"><div class="content-fragment-top macmillan-content-fragment-top"></div><div class="content-fragment-content">
+
+                      
+            
+            
+      <div class="forum-stats-container">
+  <h1>
+    Please help I need advice I feel helpless
+  </h1>
+  <div class="statsWrapper">
+    <span class="forum-stats-label">
+      No. of entries:
+    </span>
+    <span class="forum-stats-amount">
+      22      
+    </span>
+    <span class="forum-stats-separator">|</span>
+    <span class="forum-stats-label">
+      Posted on 29 Oct 2015 11:29 PM
+    </span>
+  </div>
+  <div class="buttonWrapper">
+    
+      <div class="clear">
+      </div>    
+  </div>
+</div></div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom macmillan-content-fragment-bottom"></div></div></div>
+<div class="content-fragment thread full-border no-top 
+                      " id="fragment-1562">
+<div class="content-fragment-inner macmillan-content-fragment-inner"><div class="content-fragment-top macmillan-content-fragment-top"></div><div class="content-fragment-content">
+
+
+
+
+
+
+
+	
+
+
+
+    <div class="abbreviated-post-header"></div>
+<div class="abbreviated-post">
+    <h4 class="post-name">Please help I need advice I feel helpless</h4>
+</div>
+<div class="abbreviated-post-header"></div>
+<div class="content-list-header"></div>
+<ul class="content-list">
+        <li class="content-item post-starter">
+        
+
+
+
+
+<div class="full-post-header  post-starter "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="100606"  data-thread-starter="true" >
+<div class="full-post  post-starter ">
+	<a name="100606"></a>
+	<a name="100606"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/cheesie">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-selectableavatars-64e6583d-e9be-44d9-a227-06c829b8c238/avatar.png_2D00_32x32.png" border="0" alt="Cheesie" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/cheesie">
+									<span></span>Cheesie
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	on
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/t/100606' class="internal-link view-post">29 Oct 2015 11:29 PM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p><span style="font-family:Helvetica, Arial;font-size:14px;line-height:16px;">My sisters law has just been diagnosed with breast cancer with it also in lymph nodes under arm ,she is due to have op on Friday week , we are all in shock she has been told she will have all the treatment offered over the next ten years , but what I need to ask those of you who have been through this awful thing is how can I help what will she need please can you enlighten me to the perhaps simple things that the leaflets don&#39;t say yet you found helped your comfort or aided your recovery ,thanks for listening</span></p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer  post-starter "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824493"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824493"></a>
+	<a name="824493"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/grogg">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-selectableavatars-64e6583d-e9be-44d9-a227-06c829b8c238/avatar.png_2D00_32x32.png" border="0" alt="Grogg" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/grogg">
+									<span></span>Grogg
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824493#824493' class="internal-link view-post">30 Oct 2015 2:30 AM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>First thing - please don&#39;t tell her how helpless you feel, how upset you all are etc.&nbsp; It&#39;s bad enough dealing with your own diagnosis but then you have to deal with family and friends reaction which make you feel as if they have written you off.&nbsp;&nbsp; She needs time to accept her diagnosis, she knows you are all shocked and upset but she&#39;s not in a place to comfort you at this moment.</p>
+<p>Secondly - remember that while she will physically recover she will never feel the same again.&nbsp; There is a thread on here &quot;why am I not delighted&quot;.&nbsp; Have a read of this and you will gain some insight into how it affects people emotionally.</p>
+<p>On a practical note for surgery there&#39;s lots of advice on this board about front opening PJs, soft bras, pillows for underarm etc.</p>
+<p>I didn&#39;t have chemo only surgery and radiotherapy but have a read through the various discussions or use search facility.&nbsp; Else post your specific questions or better still encourage your SIL to join the community where she can get great support from other members.</p>
+<p>She should be allocated a Breast Care Nurse.&nbsp; Most patients find these nurses very helpful and a great point of contact for any queries.&nbsp; She should give her advice pre surgery and look after her post surgery.&nbsp; Mine told me at first meeting she was now my advocate and if I needed anything she would act on my behalf.&nbsp; She&#39;s been an absolutely brilliant throughout the journey.</p>
+<p>You know your SIL and it&#39;s great you wish to support her but try to take your lead from her.&nbsp; Does she liked to be fussed - I don&#39;t but some people do.&nbsp; Try to&nbsp; treat her as normal but offer to do practical things like shopping, the odd meal, a walk or a drive for a change of scenery.</p>
+<p>There will be lots of hospital appointments that she may need lifts to.&nbsp; If you can,&nbsp;offer your services to share the load.&nbsp; She might want someone to attend appointments with her to ensure she asks all her questions and to ascertain she heard the answers.&nbsp;My BCN came out to my home to go over my diagnosis with myself and my family and it was a chance for us all to ask questions after we had time to digest the news.</p>
+<p>I think most people on this site will say there are people who have been a great support, and people who don&#39;t know what to do so ignore you!!&nbsp; I&#39;ve been surprised and annoyed&nbsp;at the friends who tell me very infrequently &quot;they don&#39;t know how to deal with the situation&quot;,&nbsp; They drop me a text once a month out of obligation I feel.&nbsp; I&#39;ve been equally surprised and comforted by the others who text me daily, invite me to meet, ask can they do anything for me.&nbsp;&nbsp;&nbsp; I&#39;ve been blessed in that all my family have been brilliant, especially my husband and daughter when I&#39;ve been crabby and mean.</p>
+<p>Remember your SIL is not dying of cancer she&#39;s living with cancer but within a few months they will have ridden her breast of the cancer.&nbsp; BC is very treatable it&#39;s just a shame the treatment makes you ill whereas you were well before the found the ruddy disease!</p>
+<p>I&#39;m sure others will come along with more advice and I&#39;m sure your SIL would benefit from joining when she feels ready.&nbsp; I wish someone had pointed me in the direction of this site early on as Mr Google is not your friend!</p>
+<p>Right going to try to sleep now. Take care x</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+	<div class="content-likes">
+		<span class="ui-like " data-tipcontent="initialmessage" data-contentid="6eb42a73-a143-428c-8f40-14cbbfd63ee5" data-contenttypeid="f586769b-0822-468a-b7f3-a94d480ed9b0" data-initialcount="5" data-initialstate="false" data-readonly="true" data-initialmessage="&lt;a href=&quot;/members/jmp&quot; class=&quot;internal-link view-user-profile&quot;>jmp&lt;/a> and &lt;span class=&quot;who-likes&quot;>4 others&lt;/span> like this" data-format="&lt;span class=&quot;like-indicator&quot;>&lt;/span> {message}" data-configuration="Format=%3Cspan%20class%3D%22like-indicator%22%3E%3C%2Fspan%3E%20%7Bmessage%7D" ></span>
+	</div>
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824507"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824507"></a>
+	<a name="824507"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/crystaljuju">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-avatars-00-00-11-74-68/4TW0C24623NB.jpg_2D00_32x32.jpg" border="0" alt="Crystaljuju" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/crystaljuju">
+									<span></span>Crystaljuju
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824507#824507' class="internal-link view-post">30 Oct 2015 8:09 AM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>Hello Cheesie&nbsp;</p>
+<p>im sorry your sister in law has been diagnosis. It&#39;s always s shock to be told you have cancer and a shock for those around you.&nbsp;</p>
+<p>You sound close to your sister in law? In which case be guided by her over the support she would like from you. Talk about it. This is a sensitive area though. If you know her well you will know how to converse with her. Personally I found my friends and family&#39;s positivity &nbsp;helped me the most.&nbsp;</p>
+<p>There is lots you can do to help. Cook dinners after she&#39;s had surgery and take them round to the family. Help with the housework, take some good books for her to read or films. Take her some hand cream, her favourite chocolate, any little taken of thought. The treatment process for me took 10 months so the support will be ongoing. Don&#39;t forget her husband and family will need support too.&nbsp;</p>
+<p>The ten years you are referring to may mean she will be offered drugs for upto ten years after treatment. Some BC types (there are different types) have preventative drugs that you take. This reduces the risk of recurrence.&nbsp;</p>
+<p>I would say suggest this forum to your SIL because we can all chat first hand then.&nbsp;</p>
+<p>In the meantime you have every reason to stay positive. The survival statistics for BC are some of the best.&nbsp;</p>
+<p>All the best x</p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+	<div class="content-likes">
+		<span class="ui-like " data-tipcontent="initialmessage" data-contentid="e856c500-c8e7-4e6a-a104-7bcd715bad89" data-contenttypeid="f586769b-0822-468a-b7f3-a94d480ed9b0" data-initialcount="4" data-initialstate="false" data-readonly="true" data-initialmessage="&lt;a href=&quot;/members/jmp&quot; class=&quot;internal-link view-user-profile&quot;>jmp&lt;/a> and &lt;span class=&quot;who-likes&quot;>3 others&lt;/span> like this" data-format="&lt;span class=&quot;like-indicator&quot;>&lt;/span> {message}" data-configuration="Format=%3Cspan%20class%3D%22like-indicator%22%3E%3C%2Fspan%3E%20%7Bmessage%7D" ></span>
+	</div>
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824532"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824532"></a>
+	<a name="824532"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/clump">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-selectableavatars-64e6583d-e9be-44d9-a227-06c829b8c238/avatar.png_2D00_32x32.png" border="0" alt="Clump" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/clump">
+									<span></span>Clump
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824532#824532' class="internal-link view-post">30 Oct 2015 9:50 AM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>Hi Cheesie, well done for wanting to support your sister in law and you ve already got lots of wise advice on here. There are great leaflets that MacMillan produce giving advice about how to support loved ones with cancer and how to talk with them. I d definitely recommend downloading them (available on the main Macmillan site) and maybe order your own paper copies for future reference.</p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+	<div class="content-likes">
+		<span class="ui-like " data-tipcontent="initialmessage" data-contentid="b82da315-d221-4629-a1f7-79d7081f775e" data-contenttypeid="f586769b-0822-468a-b7f3-a94d480ed9b0" data-initialcount="1" data-initialstate="false" data-readonly="true" data-initialmessage="&lt;a href=&quot;/members/cheesie&quot; class=&quot;internal-link view-user-profile&quot;>Cheesie&lt;/a> likes this" data-format="&lt;span class=&quot;like-indicator&quot;>&lt;/span> {message}" data-configuration="Format=%3Cspan%20class%3D%22like-indicator%22%3E%3C%2Fspan%3E%20%7Bmessage%7D" ></span>
+	</div>
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824540"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824540"></a>
+	<a name="824540"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/dreamthief">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-avatars-00-00-09-55-27/4TTYFZB8GUT3.jpg_2D00_32x32.jpg" border="0" alt="Dreamthief" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/dreamthief">
+									<span></span>Dreamthief
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824540#824540' class="internal-link view-post">30 Oct 2015 10:05 AM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>Hi Cheesie,</p>
+<p>Just to follow up on Clumps reply. If you wish to take a look at the range of various titles from Macmillan <strong><a target="_blank" title="just click this link" href="http://be.macmillan.org.uk/be/showsection.aspx?SectionID=448&amp;SEName=downloadable-pdf-files&amp;ProductTypeFilterID=144">just click this link</a></strong>.</p>
+<p>There is a very good one titled &#39;<strong><a target="_blank" title="When Someone Close To You Has Cancer" href="http://be.macmillan.org.uk/Downloads/CancerInformation/LivingWithAndAfterCancer/MAC14292SomeonecloseE01.pdf">When Someone Close To You Has Cancer</a></strong>&#39; you could start with.</p>
+<p>Take care, G n&#39; J</p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+	<div class="content-likes">
+		<span class="ui-like " data-tipcontent="initialmessage" data-contentid="cda553cf-fef8-4e39-8546-523cc5fcc813" data-contenttypeid="f586769b-0822-468a-b7f3-a94d480ed9b0" data-initialcount="2" data-initialstate="false" data-readonly="true" data-initialmessage="&lt;a href=&quot;/members/cheesie&quot; class=&quot;internal-link view-user-profile&quot;>Cheesie&lt;/a> and &lt;span class=&quot;who-likes&quot;>1 other&lt;/span> like this" data-format="&lt;span class=&quot;like-indicator&quot;>&lt;/span> {message}" data-configuration="Format=%3Cspan%20class%3D%22like-indicator%22%3E%3C%2Fspan%3E%20%7Bmessage%7D" ></span>
+	</div>
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824547"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824547"></a>
+	<a name="824547"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/clump">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-selectableavatars-64e6583d-e9be-44d9-a227-06c829b8c238/avatar.png_2D00_32x32.png" border="0" alt="Clump" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/clump">
+									<span></span>Clump
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824547#824547' class="internal-link view-post">30 Oct 2015 10:18 AM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>On a more practical note from my last post; my sister in law has been an invaluable help during my treatment in the following ways which may be of help: listening without making any suggestions about how I should be feeling or what I should do, made meals for myself and my family, come and cleaned, come round at the crack of dawn to get my boys ready for school when myself and my husband had to head off early on our long trek to hospital appointments, been on the end of text messages, helped passing on information to those I would want to know and filtering it from those I wouldn&#39;t. Basically just non judgementaly be there for her and take your lead from her. Look for practical ways you can help whilst at the same time being aware if she just wants space and to do things for herself. And definitely encourage her to join this community.</p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+	<div class="content-likes">
+		<span class="ui-like " data-tipcontent="initialmessage" data-contentid="b61dcc25-38a8-4a86-b576-4ce74da7af99" data-contenttypeid="f586769b-0822-468a-b7f3-a94d480ed9b0" data-initialcount="1" data-initialstate="false" data-readonly="true" data-initialmessage="&lt;a href=&quot;/members/jmp&quot; class=&quot;internal-link view-user-profile&quot;>jmp&lt;/a> likes this" data-format="&lt;span class=&quot;like-indicator&quot;>&lt;/span> {message}" data-configuration="Format=%3Cspan%20class%3D%22like-indicator%22%3E%3C%2Fspan%3E%20%7Bmessage%7D" ></span>
+	</div>
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824550"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824550"></a>
+	<a name="824550"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/cheesie">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-selectableavatars-64e6583d-e9be-44d9-a227-06c829b8c238/avatar.png_2D00_32x32.png" border="0" alt="Cheesie" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/cheesie">
+									<span></span>Cheesie
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824550#824550' class="internal-link view-post">30 Oct 2015 10:28 AM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>Thank you all so much for taking the time to talk , &nbsp;</p>
+<p>We live in london and she near wales so thats not helpfull &nbsp;:(</p>
+<p>i had thought of txting each day but dont want to be a nucience one of you lovely ladies said that was helpful just newsy ones not one about her perticually although my life is quite mundain and i will prob bore her to tears LoL</p>
+<p>I Have already told her i wont ask how she is all the time not because i dont care but so she is not feeling she is just a cancer person there will be more to focus on i hope&nbsp;</p>
+<p>&nbsp;</p>
+<p>Iv read the book the c word last week and that really helped to give me a bit more understanding of how she may feel through out&nbsp;</p>
+<p>i will try to suggest this site if i feel she is ready , i would like a shot but she is different to me and she is the one whos got to deal with it all&nbsp;</p>
+<p>Thankyou all so much&nbsp;</p>
+<p>my spelling is awful so sorry you have to sat as i write to understand ha ha</p>
+<p>im not finding this site easy to use i want this message to reach all you ladies so if it doesnt ill keep trying doupy or what (dont answer that one haha)</p><div style="clear:both;"></div>
+					</div>
+
+	
+													<div class="post-tags-container fiji-post-tags-container evolution2-post-tags-container">
+		<div class="post-tags" data-post-tags='["Dreamthief","Grogg","Clump","Crystaljuju"]'>
+			<span class="post-tag-list">
+							<a href="/cancer_types/breast-cancer/f/38/tags/Dreamthief">Dreamthief</a>							<a href="/cancer_types/breast-cancer/f/38/tags/Grogg">Grogg</a>							<a href="/cancer_types/breast-cancer/f/38/tags/Clump">Clump</a>							<a href="/cancer_types/breast-cancer/f/38/tags/Crystaljuju">Crystaljuju</a>			</span>
+				</div>
+	</div>
+
+
+
+	  
+	<div class="content-likes">
+		<span class="ui-like " data-tipcontent="initialmessage" data-contentid="69098baf-96b6-4449-8c35-dcb87a2eaceb" data-contenttypeid="f586769b-0822-468a-b7f3-a94d480ed9b0" data-initialcount="3" data-initialstate="false" data-readonly="true" data-initialmessage="&lt;a href=&quot;/members/dreamthief&quot; class=&quot;internal-link view-user-profile&quot;>Dreamthief&lt;/a> and &lt;span class=&quot;who-likes&quot;>2 others&lt;/span> like this" data-format="&lt;span class=&quot;like-indicator&quot;>&lt;/span> {message}" data-configuration="Format=%3Cspan%20class%3D%22like-indicator%22%3E%3C%2Fspan%3E%20%7Bmessage%7D" ></span>
+	</div>
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824553"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824553"></a>
+	<a name="824553"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/lady-pepys">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-selectableavatars-64e6583d-e9be-44d9-a227-06c829b8c238/avatar.png_2D00_32x32.png" border="0" alt="Lady Pepys" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/lady-pepys">
+									<span></span>Lady Pepys
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824553#824553' class="internal-link view-post">30 Oct 2015 10:31 AM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>Dear Cheesie,</p>
+<p>What a lovely sister-in-law you sound.&nbsp; You&#39;ve had lots of sound advice, with which I&#39;m pretty much in agreement.&nbsp; I also have a lovely sister-in-law.&nbsp; Pity she and my brother live in Denmark but here&#39;s what she did for me...listened attentively to the occasional moan, gave me therapeutic massages (that&#39;s what she does for a living), cooked great meals, didn&#39;t nag about seeing me with a glass of wine in my hand (you get so much unsolicited advice during cancer treatment).&nbsp; I&#39;m 18 months on from initial diagnosis and like many people here have been through the ringer...mastectomy, chemo, radiotherapy, more surgery and lots of medication.&nbsp; When I moved home recently (from London to Hastings), my brother and lovely wife came for several days, packed, organised, carried, shopped, cooked, calmed a traumatised cat (she&#39;s a &#39;cat-whisperer&#39;) then repeated the process&nbsp;after&nbsp;driving me to my &nbsp;new home.</p>
+<p>My sister-in-law and I did lots of the &#39;normal&#39; stuff together, like going to car boot sales, buying lots of rubbish together and generally laughing&nbsp; a lot.&nbsp; As we&#39;ve always done.&nbsp; I have no sisters (4 brothers!) but she&#39;s the sister I would have asked for.&nbsp; </p>
+<p>Best of everything to you, Cheesie,</p>
+<p>Pepys xx</p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+	<div class="content-likes">
+		<span class="ui-like " data-tipcontent="initialmessage" data-contentid="693a07c6-f3f1-4284-b417-861f3311c2b9" data-contenttypeid="f586769b-0822-468a-b7f3-a94d480ed9b0" data-initialcount="2" data-initialstate="false" data-readonly="true" data-initialmessage="&lt;a href=&quot;/members/cheesie&quot; class=&quot;internal-link view-user-profile&quot;>Cheesie&lt;/a> and &lt;span class=&quot;who-likes&quot;>1 other&lt;/span> like this" data-format="&lt;span class=&quot;like-indicator&quot;>&lt;/span> {message}" data-configuration="Format=%3Cspan%20class%3D%22like-indicator%22%3E%3C%2Fspan%3E%20%7Bmessage%7D" ></span>
+	</div>
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824556"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824556"></a>
+	<a name="824556"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/cheesie">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-selectableavatars-64e6583d-e9be-44d9-a227-06c829b8c238/avatar.png_2D00_32x32.png" border="0" alt="Cheesie" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/cheesie">
+									<span></span>Cheesie
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824556#824556' class="internal-link view-post">30 Oct 2015 10:34 AM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>&nbsp;i want to be all those, iv already tried to listen with out comments easy to say hard to do but at least having you say it helps to sement it more in my head ,</p>
+<p>i will look for that info and definatly read&nbsp;</p>
+<p>thank you you&#39;ve been really helpful i feel im gaining from your difficulties which doesn&#39;t seem very fair, does it.</p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+	<div class="content-likes">
+		<span class="ui-like " data-tipcontent="initialmessage" data-contentid="789328da-afab-4c85-aabd-90543594771f" data-contenttypeid="f586769b-0822-468a-b7f3-a94d480ed9b0" data-initialcount="2" data-initialstate="false" data-readonly="true" data-initialmessage="&lt;a href=&quot;/members/jmp&quot; class=&quot;internal-link view-user-profile&quot;>jmp&lt;/a> and &lt;span class=&quot;who-likes&quot;>1 other&lt;/span> like this" data-format="&lt;span class=&quot;like-indicator&quot;>&lt;/span> {message}" data-configuration="Format=%3Cspan%20class%3D%22like-indicator%22%3E%3C%2Fspan%3E%20%7Bmessage%7D" ></span>
+	</div>
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824561"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824561"></a>
+	<a name="824561"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/grogg">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-selectableavatars-64e6583d-e9be-44d9-a227-06c829b8c238/avatar.png_2D00_32x32.png" border="0" alt="Grogg" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/grogg">
+									<span></span>Grogg
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824561#824561' class="internal-link view-post">30 Oct 2015 11:19 AM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>I love the chatty texts and sometimes I even remember to reply lol!&nbsp; I didn&#39;t get to sleep till 5am and back up at 8am due to builders in the house.&nbsp; I had a text from a friend saying again&nbsp;he was sorry he had to cancel lunch today etc. I knew lunch was cancelled as he had rung a few days before but in my head I had replied to yesterday&#39;s text but I hadn&#39;t.&nbsp;&nbsp; So don&#39;t be offended if your text isn&#39;t replied to promptly, it&#39;s just sometimes we forget we didn&#39;t type out our reply and press send!!!</p>
+<p>I have had sleep issues from day 1 and in the end I had to say something to a close relative who texted me about 7.30am everyday to say &quot;did you sleep last night&quot;.&nbsp; The urge to say &quot;NO I F&#39;G DIDN&#39;T&quot; was just getting too great!.</p>
+<p>Someone else suggested something that I too found useful, one person to pass on &quot;news&quot;.&nbsp; i.e. when I was waiting/recovering from surgery my daughter used to take my phone and send a stock message to my friends.&nbsp; She would directly keep family up to date.&nbsp; Perhaps you could ask your SIL if she would like you to do this sometimes it&#39;s a bit overwhelming having to repeat yourself.</p>
+<p>I also utilised group messages on Facebook to tell friends where I was at as you know they want to know what treatment is coming up/finishing but don&#39;t like to ask so I would pre-empt and say &quot;going in for surgery Monday, should be home same day, feeling okay and just want to get this stage over with&quot;.&nbsp; </p>
+<p>I use FB a lot but I have never posted statuses about my diagnosis or treatment but I know other&#39;s find it helpful to do so.&nbsp; People obviously know me well as they never public posted on my wall asking how I was or saying &quot;well done&quot; etc.&nbsp; as I dislike attention.</p>
+<p>Anyway fellow BC battlers.&nbsp; I have a bit of an awkward situation.&nbsp; One of my neighbours has been in quite a lot looking at my building work as they are making similar changes and she hasn&#39;t yet asked why I&#39;m off work.&nbsp; Not sure if it&#39;s twigged with her that I have been off for 5 months!&nbsp; I&#39;m now feeling a bit anxious that she will suddenly ask and when I tell her she will go in to OMG mode.&nbsp; I feel I&#39;ve passed the stage of telling people and dealing with their reactions but I don&#39;t want to lie.&nbsp; Should I just tell her?&nbsp; I don&#39;t want my husband to tell her as I know next time I see her there will be an elephant in the room until someone mentions the C word!</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+	<div class="content-likes">
+		<span class="ui-like " data-tipcontent="initialmessage" data-contentid="fd0f985a-0d1b-47f8-b4bc-8a9212660c23" data-contenttypeid="f586769b-0822-468a-b7f3-a94d480ed9b0" data-initialcount="3" data-initialstate="false" data-readonly="true" data-initialmessage="&lt;a href=&quot;/members/lady-pepys&quot; class=&quot;internal-link view-user-profile&quot;>Lady Pepys&lt;/a> and &lt;span class=&quot;who-likes&quot;>2 others&lt;/span> like this" data-format="&lt;span class=&quot;like-indicator&quot;>&lt;/span> {message}" data-configuration="Format=%3Cspan%20class%3D%22like-indicator%22%3E%3C%2Fspan%3E%20%7Bmessage%7D" ></span>
+	</div>
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824567"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824567"></a>
+	<a name="824567"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/lady-pepys">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-selectableavatars-64e6583d-e9be-44d9-a227-06c829b8c238/avatar.png_2D00_32x32.png" border="0" alt="Lady Pepys" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/lady-pepys">
+									<span></span>Lady Pepys
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824567#824567' class="internal-link view-post">30 Oct 2015 11:37 AM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>Dear Grogg,</p>
+<p>I recently moved home and am also having quite a bit of work done so there are always builders&#39; vans in our parking area.&nbsp; I must say I just tell everyone why I&#39;m not at work (though returning in a couple of weeks) and there are a number of advantages.&nbsp; One of them is that people tend to help out more (I have dodgy hip, aggravated by Letrozole and live alone)..ie help me carry stuff.&nbsp; But apart from that, I am generally an open person and find it easier to actively tell folks, albeit briefly, what&#39;s going on with me.&nbsp; Having said that, I never post anything on FB about my condition.&nbsp; Just use it for exchanging jokes etc..</p>
+<p></p>
+<p>Pepys xx</p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+	<div class="content-likes">
+		<span class="ui-like " data-tipcontent="initialmessage" data-contentid="2d4c92f3-76d0-4c9e-ae5f-5e803ccaf3a7" data-contenttypeid="f586769b-0822-468a-b7f3-a94d480ed9b0" data-initialcount="3" data-initialstate="false" data-readonly="true" data-initialmessage="&lt;a href=&quot;/members/grogg&quot; class=&quot;internal-link view-user-profile&quot;>Grogg&lt;/a> and &lt;span class=&quot;who-likes&quot;>2 others&lt;/span> like this" data-format="&lt;span class=&quot;like-indicator&quot;>&lt;/span> {message}" data-configuration="Format=%3Cspan%20class%3D%22like-indicator%22%3E%3C%2Fspan%3E%20%7Bmessage%7D" ></span>
+	</div>
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824570"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824570"></a>
+	<a name="824570"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/jmp">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-avatars-00-00-11-33-42/4TVPL5EDB2OL.jpg_2D00_32x32.jpg" border="0" alt="jmp" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/jmp">
+									<span></span>jmp
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824570#824570' class="internal-link view-post">30 Oct 2015 11:44 AM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>Hi Grogg,</p>
+<p>Your reference to lack of sleep made me smile! :-) send her a text late at night letting her know that you are not sleeping well :-)</p>
+<p>My advice regarding the neighbour is to say matter of fact &#39; I&#39;ve had breast cancer recently and getting over it&quot; if you convey the information in a normal tone, she may be less likely to freak out, I think. But if she does freak out then that is her and not your doing :-) Judith xx</p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+	<div class="content-likes">
+		<span class="ui-like " data-tipcontent="initialmessage" data-contentid="13ed8bbc-b934-4d78-81b7-503efca03070" data-contenttypeid="f586769b-0822-468a-b7f3-a94d480ed9b0" data-initialcount="2" data-initialstate="false" data-readonly="true" data-initialmessage="&lt;a href=&quot;/members/grogg&quot; class=&quot;internal-link view-user-profile&quot;>Grogg&lt;/a> and &lt;span class=&quot;who-likes&quot;>1 other&lt;/span> like this" data-format="&lt;span class=&quot;like-indicator&quot;>&lt;/span> {message}" data-configuration="Format=%3Cspan%20class%3D%22like-indicator%22%3E%3C%2Fspan%3E%20%7Bmessage%7D" ></span>
+	</div>
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824580"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824580"></a>
+	<a name="824580"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/narna">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-selectableavatars-64e6583d-e9be-44d9-a227-06c829b8c238/avatar.png_2D00_32x32.png" border="0" alt="narna" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/narna">
+									<span></span>narna
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824580#824580' class="internal-link view-post">30 Oct 2015 12:01 PM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>Hi</p>
+<p>One of the things that was very useful was a gadjet from Halfords that stopped the seatbelt being too tight. Yes I fasten it but it releases if needed. My friend bought it for me.</p>
+<p>In the pack there are 2 one for when your driving again&nbsp;</p>
+<p>Main thing juskeep in touch&nbsp;</p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+	<div class="content-likes">
+		<span class="ui-like " data-tipcontent="initialmessage" data-contentid="9de438e1-452a-43b0-8487-322841ff74e7" data-contenttypeid="f586769b-0822-468a-b7f3-a94d480ed9b0" data-initialcount="1" data-initialstate="false" data-readonly="true" data-initialmessage="&lt;a href=&quot;/members/cheesie&quot; class=&quot;internal-link view-user-profile&quot;>Cheesie&lt;/a> likes this" data-format="&lt;span class=&quot;like-indicator&quot;>&lt;/span> {message}" data-configuration="Format=%3Cspan%20class%3D%22like-indicator%22%3E%3C%2Fspan%3E%20%7Bmessage%7D" ></span>
+	</div>
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824607"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824607"></a>
+	<a name="824607"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/mistymoley">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-avatars-00-00-07-53-94/4TU69F7XC5R2.jpg_2D00_32x32.jpg" border="0" alt="mistymoley" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/mistymoley">
+									<span></span>mistymoley
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824607#824607' class="internal-link view-post">30 Oct 2015 1:40 PM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>Hi Cheesie</p>
+<p>Think you&#39;ve already got all the advice you need, but if you want to talk to others in your situation you may well find that the <a href="/cancer_experiences/being_a_relative_/" title="Family and Friends Group">Family and Friends Group</a>&nbsp;(clickable link)&nbsp;&nbsp;will give you some other hints and tips that you can use. &nbsp;&nbsp;</p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+	<div class="content-likes">
+		<span class="ui-like " data-tipcontent="initialmessage" data-contentid="3ef112b8-8cc0-4c40-93fe-ace29c898dbc" data-contenttypeid="f586769b-0822-468a-b7f3-a94d480ed9b0" data-initialcount="2" data-initialstate="false" data-readonly="true" data-initialmessage="&lt;a href=&quot;/members/jmp&quot; class=&quot;internal-link view-user-profile&quot;>jmp&lt;/a> and &lt;span class=&quot;who-likes&quot;>1 other&lt;/span> like this" data-format="&lt;span class=&quot;like-indicator&quot;>&lt;/span> {message}" data-configuration="Format=%3Cspan%20class%3D%22like-indicator%22%3E%3C%2Fspan%3E%20%7Bmessage%7D" ></span>
+	</div>
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+            <li class="content-item">
+        
+
+
+
+
+<div class="full-post-header "></div>
+<div class="full-post-container fiji-full-post-container evolution2-full-post-container"  data-reply-id="824740"  data-thread-starter="false" >
+<div class="full-post ">
+	<a name="824740"></a>
+	<a name="824740"></a>
+	<div class="post-author">
+		<table class="post-author-details-table fiji-post-author-details-table evolution2-post-author-details-table" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="post-author-avatar-cell fiji-post-author-avatar-cell evolution2-post-author-avatar-cell">
+					<span class="avatar">
+													<a href="/members/cheesie">
+								<img src="/cfs-filesystemfile/__key/communityserver-components-imagefileviewer/communityserver-components-selectableavatars-64e6583d-e9be-44d9-a227-06c829b8c238/avatar.png_2D00_32x32.png" border="0" alt="Cheesie" />
+							</a>
+											</span>
+				</td>
+				<td class="post-author-user-cell fiji-post-author-user-cell evolution2-post-author-user-cell">
+				   <div class="user-name-post-date fiji-user-name-post-date evolution2-user-name-post-date">
+						Posted by <span class="user-name">
+															<a class="internal-link view-user-profile" href="/members/cheesie">
+									<span></span>Cheesie
+								</a>
+													</span>
+						<div class="post-date">
+							<span class="label">
+																	<a href="/cancer_types/breast-cancer/f/38/t/100606">on</a>
+															</span>
+							<span class="value"><a href='/cancer_types/breast-cancer/f/38/p/100606/824740#824740' class="internal-link view-post">30 Oct 2015 10:10 PM</a></span>
+						</div>
+																	</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div class="post-content user-defined-markup">
+					<p>Thanks again for sharing i feel iv gained alot already from you all&nbsp;</p>
+<p>i will definitely not text and as same questions , was hoping to me more newsy about life this end and encourage talk of her daughter</p>
+<p>i will look up other groups too although im not finding it easy to navegate this site yet but will keep trying</p>
+<p>i have taken photos of the seat belt idea and the nail stuff i didnt even know your nails could be affected :(</p>
+<p>i will now sit tight now &nbsp;i havnt told her about my need for advice ,</p>
+<p>ill see how it all affects her and wait to see how we can help i will ask about the news spreader idea though,</p>
+<p>she made a family whats app group called it &quot;the dirty little c word&quot; so when she has news she tells us altogether which has been helpful , i want to tell her about your site but dont want to intrude on how shes dealing with it because of distance i cant see her face and txt its not easy to read into at times is it ,</p>
+<p>grogg sorry to hear about your sleep or lack of it, do you feel more worn out because of it or do you catch up during the day</p>
+<p>thanks again all&nbsp;</p>
+<p></p><div style="clear:both;"></div>
+					</div>
+
+	
+
+
+
+	  
+
+<div class="fiji-post-details-container-outer evolution2-post-details-container-outer">
+	<table class="post-details-container fiji-post-details-container evolution2-post-details-container" cellpadding="0" cellspacing="0" border="0">
+		<tr>
+															<td class="post-actions-cell fiji-post-actions-cell evolution2-post-actions-cell">
+				<div class="post-actions">
+					<div class="navigation-list-header"></div>
+					<ul class="navigation-list">
+						<li class="navigation-item add-post">
+
+												</li>
+					</ul>
+					<div class="navigation-list-footer">
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+	<div class="moderated-message" style="display:none">
+		<div class="field-list-header"></div>
+		<fieldset class="field-list">
+			<div class="message warning">
+				You have posted to a forum that requires a moderator to approve posts before they are publicly available.
+			</div>
+		</fieldset>
+		<div class="field-list-footer"></div>
+	</div>
+	</div>
+</div>
+<div class="full-post-footer "></div>
+    </li>
+    </ul>
+<div class="content-list-footer"></div>
+
+    <div class="pager ui-page" data-currentpage="0" data-pagesize="15" data-totalitems="22" data-pagekey="pi1562" data-configuration="BaseUrl=https%3A%2F%2Fcommunity.macmillan.org.uk%2Fcancer_types%2Fbreast-cancer%2Ff%2F38%2Ft%2F100606%3Fpi1562%3D2" ><a href="/cancer_types/breast-cancer/f/38/t/100606?pi1562=2" class="next"  style="display:none" ><span>&#62;</span></a></div>
+
+<span class="processing" style="visibility: hidden;"></span>
+
+
+      </div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom macmillan-content-fragment-bottom"></div></div></div>
+</div>
+</div>
+</div>
+<div class="layout-footer"></div>
+</div></div><div class="footer-fragments-header"></div>
+<div class="footer-fragments" id="ctl04_ctl03_page"><div class="layout">
+<div class="layout-header"></div>
+<div class="layout-content content" id="ctl04_ctl03_layout">
+<div class="layout-region content" id="ctl04_ctl03_content">
+<div class="layout-region-inner content"><div class="content-fragment footer-fragment site-footer" id="footer-96">
+<div class="content-fragment-inner macmillan-content-fragment-inner"><div class="content-fragment-top macmillan-content-fragment-top"></div><div class="content-fragment-content">
+<div class="sys_footer">
+    <div class="sys_col1">
+        <h2>
+          Contact us
+        </h2>
+        <p>
+          If you have any questions about Macmillan we would love to  <a href="http://www.macmillan.org.uk/ContactUs/" title="Contact us">hear from you</a>
+        </p>
+        <p>&nbsp;</p>
+        <p>
+        You can also  <a href="http://www.macmillan.org.uk/Social/" title="follow us">follow us</a>  on Facebook, Twitter, Flickr or YouTube.
+        </p>
+    </div>
+    <div class="sys_col2">
+        <h2>About this site</h2>
+        <ul>
+        <li>
+          <a href="http://www.macmillan.org.uk/SiteMap/" title="Sitemap">Sitemap</a>
+        </li>
+        <li>
+          <a href="http://www.macmillan.org.uk/Accessibility/" title="Accessibility">Accessibility</a>
+        </li>
+        <li>
+          <a href="http://www.macmillan.org.uk/Privacy/" title="Privacy policy">Privacy policy</a>
+        </li>
+        <li>
+          <a href="http://www.macmillan.org.uk/TermsAndConditions/" title="Terms and conditions">Terms and conditions</a>
+        </li>
+        <li>
+          <a href="http://www.macmillan.org.uk/TermsAndConditions/HowWeusecookies.aspx" title="How we use cookies">How we use cookies</a>
+        </li>
+        <li>
+          <a href="http://www.macmillan.org.uk/YourContent/" title="Your content">Your content</a>
+        </li>
+        </ul>
+        <p>
+          &copy; Macmillan Cancer Support  2015
+        </p>
+    </div>
+    <div class="sys_col3">
+        <h2>
+          Other Macmillan resources
+        </h2>
+        <ul>
+        <li>
+          <a href="http://www.macmillan.org.uk/Aboutus/WorkingForMacmillan/Working_for_Macmillan.aspx" title="Careers">Careers</a>
+        </li>
+        <li>
+          <a href="http://be.macmillan.org.uk/" title="Be.Macmillan">Be.Macmillan</a>
+        </li>
+        <li>
+          <a href="http://www.macmillan.org.uk/LearnZone/" title="Learn Zone">Learn Zone</a>
+        </li>
+        <li>
+          <a href="http://www.macmillan.org.uk/Shop/" title="Macmillan shop">Macmillan shop</a>
+        </li>
+        <li>
+          <a href="http://www.macmillan.org.uk/MediaCentre/" title="Media Centre">Media Centre</a>
+        </li>
+        <li>
+          <a href="http://www.macmillan.org.uk/Publications/" title="Publication directory">Publication directory</a>
+        </li>
+        <li>
+          <a href="http://www.macmillan.org.uk/Schools/" title="Schools and young people">Schools and young people</a>
+        </li>
+        <li>
+          <a href="http://www.click4tic.org.uk/" title="Teen Info on Cancer">Teen Info on Cancer</a>
+        </li>
+        </ul>
+    </div>
+    <div class="sys_col4">
+        <h2>
+          Bookmark this page
+        </h2>
+        <div class="sys_clear">
+        <!--clear-->
+        </div>
+        <ul>
+        <li>
+          <a href="http://www.facebook.com/sharer.php?u=https://community.macmillan.org.uk/cancer_types/breast-cancer/f/38/t/100606" title="Facebook">            
+            <img src="/themes/macmillan/images/footer/facebook.gif"  alt="Facebook" />
+            <span>Facebook</span> 
+            <span class="sys_clear"><!--clear--></span>
+           </a>
+        </li>
+        <li>
+          <a href="http://digg.com/submit?url=https://community.macmillan.org.uk/cancer_types/breast-cancer/f/38/t/100606&amp;title=Macmillan's Online Community" title="Digg">
+            <img src="/themes/macmillan/images/footer/digg.gif"  alt="Digg" />
+            <span>Digg</span> 
+            <span class="sys_clear"><!--clear--></span>
+           </a>
+        </li>
+        <li>
+          <a href="http://www.stumbleupon.com/submit?url=https://community.macmillan.org.uk/cancer_types/breast-cancer/f/38/t/100606&amp;title=Macmillan's Online Community" title="Stumble Upon">
+            <img src="/themes/macmillan/images/footer/stumble.gif"  alt="Stumble Upon" />
+            <span>Stumble Upon</span> 
+            <span class="sys_clear"><!--clear--></span>
+           </a>
+        </li>
+        </ul>
+        <ul>
+        <li>
+          <a href="http://del.icio.us/post?url=https://community.macmillan.org.uk/cancer_types/breast-cancer/f/38/t/100606&amp;title=Macmillan's Online Community" title="Delicious">
+            <img src="/themes/macmillan/images/footer/del.gif"  alt="Delicious" />
+            <span>Delicious</span> 
+            <span class="sys_clear"><!--clear--></span>
+           </a>
+        </li>
+        <li>
+          <a href="http://reddit.com/submit?url=https://community.macmillan.org.uk/cancer_types/breast-cancer/f/38/t/100606&amp;title=Macmillan's Online Community" title="Reddit">
+            <img src="/themes/macmillan/images/footer/reddit.gif"  alt="Reddit" />
+            <span>Reddit</span> 
+            <span class="sys_clear"><!--clear--></span>
+           </a>
+        </li>
+        </ul>
+        <div class="sys_clear">
+        <!--clear-->
+        </div>
+        <p>
+        <strong>
+          <a href="http://www.macmillan.org.uk/WhatAreBookmarks/" title="what are these?">what are these?</a>
+        </strong>
+        </p>
+            </div>
+    <div class="sys_clear">
+        <!--clear-->
+    </div>
+</div>
+<div class="sys_footer_bottom">
+  Macmillan Cancer Support, registered charity in England and Wales (261017), Scotland (SC039907) and the Isle of Man (604). A company limited by guarantee, registered in England and Wales company number 2400969. Isle of Man company number 4694F. Registered office: 89 Albert Embankment, London SE1 7UQ.
+</div>
+</div>
+<div class="content-fragment-footer"></div>
+<div class="content-fragment-bottom macmillan-content-fragment-bottom"></div></div></div>
+<div id="footer-97"></div>
+<div id="footer-98"></div>
+<div id="footer-99"></div>
+</div>
+</div>
+</div>
+<div class="layout-footer"></div>
+</div></div><div class="footer-fragments-footer"></div>
+        <script type="text/javascript" src="/content/scripts/header-v2.min.js"></script>
+      <script type="text/javascript" src="/cfs-file/__key/defaultwidgets/51574ae78b1f48799d6a88093d7d328b-cf026ceeb211469a83f821a3a00ec280/jquery.watermark.min.js"></script>
+<script type="text/javascript" src="/cfs-file/__key/defaultwidgets/51574ae78b1f48799d6a88093d7d328b-cf026ceeb211469a83f821a3a00ec280/searchui.min.js?v=3.8.5.123"></script>
+<script type="text/javascript">
+  jQuery(function(){
+  jQuery.macmillan.community.widgets.siteSearch.register({
+  searchResultsUrl: '/search?{0}',
+  searchBoxSelector: '.search #searchForm #query',
+  searchButtonSelector: '.search #searchForm .cta-button',
+  watermarkText: 'Search'
+  });
+  });
+</script>
+  <script type="text/javascript" src="/cfs-file/__key/defaultwidgets/51574ae78b1f48799d6a88093d7d328b-c88afe20dab2427284057842207ddd8a/ui.min.js"></script>
+  <script type="text/javascript">
+    jQuery(function(){
+      jQuery.macmillan.community.widgets.communityNavigation.register({
+        conversationNotificationTypeId: '84e4c0a7-3a17-4dfe-b8a0-d7038aa04a84',
+        messageCountSelector: "#header-108 .conversations .count",
+        friendshipCountSelector: "#header-108 .friends .count",
+        friendshipLinkSelector: "#header-108 a.friends",
+        friendsListUrl: "/members/anonymous/friends",
+        pendingFriendsUrl: "/members/anonymous/friends?Show=Review",
+        friendshipRequestNotificationTypeId: 'bb196c30-fad3-4ad8-a644-2a0187fc5617',
+        userId: 2101
+      });
+    });
+  </script>
+<script type="text/javascript">
+// <![CDATA[
+ctl04_ctl01 = new ContentFragmentContainerCustomCallback('ctl04_ctl01',new Function('mode','parameters','callback','errorCallback','context','authValue','ctl04_ctl01_ctl00._doCallback(mode+\':\'+authValue+\':\'+parameters,callback,context,errorCallback);'),'AuthorizationCookie');
+// ]]>
+</script>					<script type="text/javascript" src="/cfs-file/__key/defaultwidgets/d7417ed0402a494a8d77da50c7018d45-c160895bee0944f6b87c77afe4087486/ui.min.js?v=3.8.5.57"></script>
+									<script type="text/javascript">
+						jQuery(document).ready(function()
+						{
+							jQuery.macmillan.community.widgets.groupBanner.register({
+								groupMembershipButton:jQuery("#fragment-1559_groupMembershipButton"),
+								requestJoinUrl:"/login?ReturnUrl=%2Fcancer_types%2Fbreast-cancer%2F%3Frequestmembership%3Dtrue",
+								canJoinGroup:  false,								canJoinGroupByRequest:  false,								membershipType:"None",
+								groupId:87,
+								userId:2101,
+								errorText:"There was an error joining or leaving the group.",
+																	forceRequestMembership:false
+															});
+              
+              jQuery.macmillan.community.widgets.siteSearch.register({
+                searchResultsUrl: '/search?{0}#serpgroup=87\u0026groupname=Breast cancer',
+                searchBoxSelector: '.searchInGroup #group-search-term',
+                searchButtonSelector: '.searchInGroup #group-search-button'
+              });
+						});
+					</script>
+				    <script type="text/javascript" src="/cfs-file/__key/defaultwidgets/78d78fc60c484b96b8bee60add9c4905-fc09ba5e74374aea83805a252900a856/ui.min.js"></script>
+    <script type="text/javascript" src="/cfs-file/__key/defaultwidgets/78d78fc60c484b96b8bee60add9c4905-fc09ba5e74374aea83805a252900a856/autoresize.jquery.min.js"></script>
+    <script type="text/javascript">
+    jQuery(function(){
+                    jQuery.macmillan.community.widgets.thread.register({
+				wrapperSelector: '#fragment-1562',
+				allTags:[],
+				selectTagsText:"Select Tags...",
+				threadId:100606,
+				forumId:38,
+				tagUrlTemplate:"https://community.macmillan.org.uk/cancer_types/breast-cancer/f/38/tags/TAGNAME",
+				ratingUrl:"/utility/scripted-file.ashx?_cf=rate.vm\u0026_fid=1562\u0026_ct=page\u0026_cp=forums-thread\u0026_ctt=c6108064af6511ddb074de1a56d89593\u0026_ctc=2008bf81be264d38bdb3ff82384f6ad0\u0026_ctn=58f17914a9cc4343a43ebf1db38610cb\u0026_cc=0\u0026_pcurl=%7e%2fcancer_types%2fbreast-cancer%2ff%2f38%2ft%2f100606",
+				advancedReplyUrl:"/utility/scripted-file.ashx?_cf=advanced-reply.vm\u0026_fid=1562\u0026_ct=page\u0026_cp=forums-thread\u0026_ctt=c6108064af6511ddb074de1a56d89593\u0026_ctc=2008bf81be264d38bdb3ff82384f6ad0\u0026_ctn=58f17914a9cc4343a43ebf1db38610cb\u0026_cc=0\u0026_pcurl=%7e%2fcancer_types%2fbreast-cancer%2ff%2f38%2ft%2f100606",
+				replyUrl:"/utility/scripted-file.ashx?_cf=reply.vm\u0026_fid=1562\u0026_ct=page\u0026_cp=forums-thread\u0026_ctt=c6108064af6511ddb074de1a56d89593\u0026_ctc=2008bf81be264d38bdb3ff82384f6ad0\u0026_ctn=58f17914a9cc4343a43ebf1db38610cb\u0026_cc=0\u0026_pcurl=%7e%2fcancer_types%2fbreast-cancer%2ff%2f38%2ft%2f100606",
+				threadReplyUrl: "https://community.macmillan.org.uk/cancer_types/breast-cancer/f/38/t/100606?pi1562=2",
+				markAnswerUrl: "/utility/scripted-file.ashx?_cf=markanswer.vm\u0026_fid=1562\u0026_ct=page\u0026_cp=forums-thread\u0026_ctt=c6108064af6511ddb074de1a56d89593\u0026_ctc=2008bf81be264d38bdb3ff82384f6ad0\u0026_ctn=58f17914a9cc4343a43ebf1db38610cb\u0026_cc=0\u0026_pcurl=%7e%2fcancer_types%2fbreast-cancer%2ff%2f38%2ft%2f100606",
+				isQuestion:  false ,
+				showInlineReplies:  false ,
+				replyBodyRequiredText: "You must enter a reply before you attempt to submit.",
+				removeCaptureButtonSelector: '#fragment-1562_deleteWikiPage',
+				deleteWikiConfirmationText: "Are you sure you want to delete this link?",
+				deletePageAssociationUrl: "/utility/scripted-file.ashx?_cf=delete-page-association.vm\u0026_fid=1562\u0026_ct=page\u0026_cp=forums-thread\u0026_ctt=c6108064af6511ddb074de1a56d89593\u0026_ctc=2008bf81be264d38bdb3ff82384f6ad0\u0026_ctn=58f17914a9cc4343a43ebf1db38610cb\u0026_cc=0\u0026_pcurl=%7e%2fcancer_types%2fbreast-cancer%2ff%2f38%2ft%2f100606",
+				moderationMenuUrl: "/utility/scripted-file.ashx?_cf=moderation-menu.vm\u0026_fid=1562\u0026_ct=page\u0026_cp=forums-thread\u0026_ctt=c6108064af6511ddb074de1a56d89593\u0026_ctc=2008bf81be264d38bdb3ff82384f6ad0\u0026_ctn=58f17914a9cc4343a43ebf1db38610cb\u0026_cc=0\u0026_pcurl=%7e%2fcancer_types%2fbreast-cancer%2ff%2f38%2ft%2f100606",
+				totalPosts:  15             });
+    });
+      </script>
+      <script type="text/javascript">
+// <![CDATA[
+ctl04_ctl02 = new ContentFragmentContainerCustomCallback('ctl04_ctl02',new Function('mode','parameters','callback','errorCallback','context','authValue','ctl04_ctl02_ctl00._doCallback(mode+\':\'+authValue+\':\'+parameters,callback,context,errorCallback);'),'AuthorizationCookie');
+// ]]>
+</script>	<script type="text/javascript" src="/cfs-file/__key/defaultwidgets/7bb87a0cc5864a9392ae5b9e5f9747b7-212f71d69e37457887f33f32918f6ae2/ui.js"></script>
+	<script type="text/javascript">
+		jQuery(function(){
+			jQuery.telligent.evolution.widgets.userHover.register({
+				getUserInformationUrl: '/utility/scripted-file.ashx?_cf=get-user-information.vm\u0026_fid=97\u0026_ct=footer\u0026_cp=forums-thread\u0026_ctt=c6108064af6511ddb074de1a56d89593\u0026_ctc=2008bf81be264d38bdb3ff82384f6ad0\u0026_ctn=58f17914a9cc4343a43ebf1db38610cb\u0026_cc=0\u0026_pcurl=%7e%2fcancer_types%2fbreast-cancer%2ff%2f38%2ft%2f100606',
+				getRecentActivityUrl: '/utility/scripted-file.ashx?_cf=get-recent-activity.vm\u0026_fid=97\u0026_ct=footer\u0026_cp=forums-thread\u0026_ctt=c6108064af6511ddb074de1a56d89593\u0026_ctc=2008bf81be264d38bdb3ff82384f6ad0\u0026_ctn=58f17914a9cc4343a43ebf1db38610cb\u0026_cc=0\u0026_pcurl=%7e%2fcancer_types%2fbreast-cancer%2ff%2f38%2ft%2f100606'
+			});
+		});
+	</script>
+        <script type="text/javascript" src="/cfs-file/__key/defaultwidgets/51574ae78b1f48799d6a88093d7d328b-f54d3f8e826b4de9a3b9f6161c2d9b32/FooterScripts.min.js?v=3.8.5.108"></script>
+      <script type="text/javascript">
+// <![CDATA[
+ctl04_ctl03 = new ContentFragmentContainerCustomCallback('ctl04_ctl03',new Function('mode','parameters','callback','errorCallback','context','authValue','ctl04_ctl03_ctl00._doCallback(mode+\':\'+authValue+\':\'+parameters,callback,context,errorCallback);'),'AuthorizationCookie');
+// ]]>
+</script><script type="text/javascript">
+// <![CDATA[
+window.ctl04_ctl01_ctl00 = new Telligent_CallbackManager('ctl04_ctl01_ctl00','ctl04$ctl01$ctl00','ctl03');
+// ]]>
+</script><script type="text/javascript">
+// <![CDATA[
+window.ctl04_ctl02_ctl00 = new Telligent_CallbackManager('ctl04_ctl02_ctl00','ctl04$ctl02$ctl00','ctl03');
+// ]]>
+</script><script type="text/javascript">
+// <![CDATA[
+window.ctl04_ctl03_ctl00 = new Telligent_CallbackManager('ctl04_ctl03_ctl00','ctl04$ctl03$ctl00','ctl03');
+// ]]>
+</script></form><script type="text/javascript">function pageviewSearch(){return window.location.href.indexOf('/search/default.aspx') > -1 ? window.location.pathname+window.location.hash.replace('#','?') : ''};var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-3012943-2']);_gaq.push(['_setDomainName', 'macmillan.org.uk']);_gaq.push(['_setSessionCookieTimeout', 3600000]);_gaq.push(['_setAllowLinker', true]);_gaq.push(['_trackPageview',pageviewSearch()]);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();window.onhashchange = function(){_gaq.push(['_trackPageview',pageviewSearch()]);}</script>
+
+<script type="text/javascript">
+jQuery(document).ready(function () {    var script = document.createElement('script');    script.type = 'text/javascript';    script.src = '/Themes/Macmillan/Script/GoogleTagManager.js';    jQuery('body').prepend(script);});</script>
+<script type="text/javascript">
+setTimeout(function(){var a=document.createElement("script");
+var b=document.getElementsByTagName("script")[0];
+a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0013/2669.js?"+Math.floor(new Date().getTime()/3600000);
+a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script></body></html>
