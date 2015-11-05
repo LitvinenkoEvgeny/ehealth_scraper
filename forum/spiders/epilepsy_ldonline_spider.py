@@ -41,8 +41,6 @@ class ForumsSpider(CrawlSpider):
     )
 
     def topic_parse(self, response):
-        print("*" * 50)
-        print(response.url)
         items = []
 
         subject = response.xpath(
@@ -74,4 +72,3 @@ class ForumsSpider(CrawlSpider):
 
             items.append(item)
         return items
-        print("*" * 50)
