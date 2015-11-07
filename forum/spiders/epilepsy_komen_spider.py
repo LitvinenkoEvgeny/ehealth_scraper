@@ -1,6 +1,7 @@
 import scrapy
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors import LinkExtractor
+from forum.items import PostItemsList
 
 
 # import lxml.html
@@ -25,66 +26,73 @@ class ForumsSpider(CrawlSpider):
         "https://apps.komen.org/Forums/",
     ]
 
-    rules = (
+    def parse(self, response):
+        for url in response.xpath('//a[@class="forumlink"]/@href').extract():
+            url = response.urljoin(url)
+            yield scrapy.Request(url,
+                                 callback=self.forum_parse,
+                                 cookies={"KomenForumApptimefilter": "0"}
+                                 )
 
-        Rule(LinkExtractor(
-            # get all forums
-            allow=(r"forumid=\d+")),
-            callback="new_req", follow=True),
-
-        #     Rule(LinkExtractor(
-        # get all topics
-        #         restrict_xpaths='//a[contains(@id, "msgSubjectLink_")]'),
-        #         callback="topic_parse", follow=True),
-
-        # Rule(LinkExtractor(
-        #     # forume pagination
-        #     allow=(r"forumid=\d+&p=\d+")),
-        #     callback="topic_parse", follow=True),
-    )
-
-    def new_req(self, response):
-        request = scrapy.Request(
-            url=response.url,
-            cookies={"KomenForumApptimefilter": "0"},
-            callback="topic_parse"
-        )
-        return request
+    def forum_parse(self, response):
+        # print("=" * 50)
+        # print(response.url)
+        for topic in response.xpath(
+                '//a[contains(@id, "msgSubjectLink")]/@href').extract():
+            topic = response.urljoin(topic)
+            yield scrapy.Request(topic, self.topic_parse,
+                                 cookies={"KomenForumApptimefilter": "0"})
+        next_page = response.xpath(
+            '//a[@class="paging"][contains(text(), ">")]/@href').extract()
+        if len(next_page) > 0:
+            yield scrapy.Request(response.urljoin(next_page[0]),
+                                 callback=self.forum_parse,
+                                 cookies={"KomenForumApptimefilter": "0"}
+                                 )
 
     def topic_parse(self, response):
-        print("=" * 50)
-        print("fdsaafdssdfkljflajflkjsfkljsdklfjskljfksjklfdsjkljfsdkljfsdalj")
-        print("=" * 50)
-        # print(response.url)
-        # items = []
+        items = []
+        subject = response.xpath(
+            '//div[@class="for_title"]/text()').extract()[0].strip()
+        next_page = response.xpath(
+            '//a[@class="paging"][last()]/@href').extract()
+        posts = response.xpath('//table[contains(@id, "msg_tbl")]')
+        url = response.url
+        for post in posts:
+            item = PostItemsList()
+            author = post.xpath(
+             './/a[@class="titlehead"]/text()'
+                ).extract()[0]
+            author_link = post.xpath(
+             './/a[@class="titlehead"]/@href'
+                ).extract()[0]
+            author_link = response.urljoin(author_link)
 
-        # subject = response.xpath(
-        #     '//div[@class="navbar"]/strong/text()').extract()[0]
-        # subject = subject.strip()
-        # url = response.url
-        # posts = response.xpath('//table[contains(@id, "post")]')
+            message = "".join(post.xpath(
+             './/div[@class="msg"]//text()'
+                ).extract())
+            message = message.strip()
 
-        # for post in posts:
-        #     item = PostItemsList()
-        #     author = post.xpath(
-        #         './/div[contains(@id, "postmenu")]/text()').extract()[0]
-        #     author = author.strip()
-        #     author_link = "*"
-        #     create_date = post.xpath(
-        #         './/td[@class="thead"]//text()'
-        #     ).extract()[1].strip()
+            create_date = post.xpath(
+             './/span[contains(@id, "date")]/text()'
+                ).extract()[0].strip()
 
-        #     message = ''.join(post.xpath(
-        #         './/div[contains(@id, "post_message_")]//text()'
-        #     ).extract()).strip()
+            item['author'] = author
+            item['author_link'] = author_link
+            item['create_date'] = create_date
+            item['post'] = message
+            item['tag'] = 'epilepsy'
+            item['topic'] = subject
+            item['url'] = url
 
-        #     item['author'] = author
-        #     item['author_link'] = author_link
-        #     item['create_date'] = create_date
-        #     item['post'] = message
-        #     item['tag'] = 'epilepsy'
-        #     item['topic'] = subject
-        #     item['url'] = url
+            items.append(item)
+        yield {"items": items}
 
-        #     items.append(item)
-        # return items
+
+        if len(next_page) > 0:
+            next_page = response.urljoin(next_page[0])
+            print("!"*100)
+            yield scrapy.Request(url,
+                                 callback=self.topic_parse,
+                                 cookies={"KomenForumApptimefilter": "0"}
+                                 )
