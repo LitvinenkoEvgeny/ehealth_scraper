@@ -91,7 +91,6 @@ class ForumsSpider(CrawlSpider):
 
         if len(next_page) > 0:
             next_page = response.urljoin(next_page[0])
-            print("!"*100)
             yield scrapy.Request(url,
                                  callback=self.topic_parse,
                                  cookies={"KomenForumApptimefilter": "0"}

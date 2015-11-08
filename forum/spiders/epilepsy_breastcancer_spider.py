@@ -22,6 +22,7 @@ class EpilepsyBreastcancerSpiderSpider(CrawlSpider):
 
     def parse_item(self, response):
         items = []
+
         def clean_date(date):
             if len(date) > 1:
                 date = date[0].split('\n')
@@ -69,7 +70,6 @@ class EpilepsyBreastcancerSpiderSpider(CrawlSpider):
             message = post.xpath(
                 './/div[@class="user-post"]//p[not(@class="post-time")]//text()').extract()
             message = "".join(message).strip()
-
 
             item['author'] = author
             item['author_link'] = author_link
