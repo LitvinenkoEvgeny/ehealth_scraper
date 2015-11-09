@@ -5,6 +5,8 @@ from scrapy.spiders import CrawlSpider, Rule
 
 from forum.items import PostItemsList
 
+from helpers import cleanText
+
 
 class EpilepsyBreastcancerSpiderSpider(CrawlSpider):
     name = 'epilepsy_breastcancer_spider'
@@ -36,9 +38,11 @@ class EpilepsyBreastcancerSpiderSpider(CrawlSpider):
         subject = response.xpath(
             '//p[@id="crumbs"]/a[2]/text()').extract()[0].strip()
         original_author = response.xpath(
-            '//div[@class="original-topic"]//div[@class="user-post"]/p/strong/a/text()').extract()[0]
+            '//div[@class="original-topic"]//div[@class="user-post"]/p/strong/a/text()')\
+            .extract()[0]
         original_author_link = response.xpath(
-            '//div[@class="original-topic"]//div[@class="user-post"]/p/strong/a/@href').extract()[0]
+            '//div[@class="original-topic"]//div[@class="user-post"]/p/strong/a/@href')\
+            .extract()[0]
         original_create_date = response.xpath(
             '//div[@class="original-topic"]//span[@class="posted-time left"]//text()'
         ).extract()
@@ -70,6 +74,7 @@ class EpilepsyBreastcancerSpiderSpider(CrawlSpider):
             message = post.xpath(
                 './/div[@class="user-post"]//p[not(@class="post-time")]//text()').extract()
             message = "".join(message).strip()
+            message = cleanText(message)
 
             item['author'] = author
             item['author_link'] = author_link
