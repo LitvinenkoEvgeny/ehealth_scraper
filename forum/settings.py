@@ -44,3 +44,6 @@ HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
 FLUENTD_URI='localhost'
 FLUENTD_PORT=24224
 FLUENTD_CHANNEL='FM'
+
+# delete this one
+# LOG_LEVEL = 'INFO'
